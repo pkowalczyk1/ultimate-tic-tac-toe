@@ -10,4 +10,6 @@ public interface IField {
     void setToEnabled();
 
     boolean isDisabled();
+
+    TableVector2d getPosition();
 }

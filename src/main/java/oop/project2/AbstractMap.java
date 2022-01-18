@@ -6,14 +6,14 @@ import java.util.LinkedHashMap;
 abstract public class AbstractMap {
     protected final HashMap<TableVector2d, IField> fields = new LinkedHashMap<>();
 
-    public boolean checkIfWon() {
+    public FieldContent checkIfWon() {
         for (int i=0; i<3; i++) {
             IField col1 = fields.get(new TableVector2d(i, 0));
             IField col2 = fields.get(new TableVector2d(i, 1));
             IField col3 = fields.get(new TableVector2d(i, 2));
 
             if (col1.getContent() != null && col1.getContent() == col2.getContent() && col1.getContent() == col3.getContent()) {
-                return true;
+                return col1.getContent();
             }
         }
 
@@ -23,7 +23,7 @@ abstract public class AbstractMap {
             IField row3 = fields.get(new TableVector2d(2, j));
 
             if (row1.getContent() != null && row1.getContent() == row2.getContent() && row1.getContent() == row3.getContent()) {
-                return true;
+                return row1.getContent();
             }
         }
 
@@ -32,7 +32,7 @@ abstract public class AbstractMap {
         IField rightDiagonal3 = fields.get(new TableVector2d(2, 2));
 
         if (rightDiagonal1.getContent() != null && rightDiagonal1.getContent() == rightDiagonal2.getContent() && rightDiagonal1.getContent() == rightDiagonal3.getContent()) {
-            return true;
+            return rightDiagonal1.getContent();
         }
 
         IField leftDiagonal1 = fields.get(new TableVector2d(0, 2));
@@ -40,10 +40,10 @@ abstract public class AbstractMap {
         IField leftDiagonal3 = fields.get(new TableVector2d(2, 0));
 
         if (leftDiagonal1.getContent() != null && leftDiagonal1.getContent() == leftDiagonal2.getContent() && leftDiagonal1.getContent() == leftDiagonal3.getContent()) {
-            return true;
+            return leftDiagonal1.getContent();
         }
 
-        return false;
+        return null;
     }
 
     public boolean checkIfComplete() {

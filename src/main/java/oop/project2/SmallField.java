@@ -29,4 +29,8 @@ public class SmallField implements IField{
     public boolean isDisabled() {
         return isDisabled;
     }
+
+    public TableVector2d getPosition() {
+        return position;
+    }
 }

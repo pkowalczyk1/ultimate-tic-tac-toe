@@ -1,8 +1,5 @@
 package oop.project2;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-
 public class Map extends AbstractMap {
     private FieldContent currentSymbol;
 
@@ -20,15 +17,27 @@ public class Map extends AbstractMap {
         currentSymbol = currentSymbol.next();
     }
 
-    public boolean clicked(BigField field, TableVector2d position) {
+    public FieldContent clicked(BigField field, TableVector2d position) {
         field.getFields().get(position).placeSymbol(currentSymbol);
-        if (field.checkIfWon() || field.checkIfComplete()) {
-            field.setAllToDisabled();
+        FieldContent fieldWinner = field.checkIfWon();
+        boolean complete = field.checkIfComplete();
+
+        if (fieldWinner != null) {
+            field.placeSymbol(fieldWinner);
+            FieldContent winner = checkIfWon();
+            if (winner != null) {
+                setAllToDisabled();
+                return winner;
+            }
+        }
+
+        if (complete) {
+            field.setToDisabled();
         }
 
         setAllToDisabled();
 
-        if (fields.get(position).isDisabled()) {
+        if (fields.get(position).getContent() != null) {
             setAllToEnabled();
         }
         else {
@@ -37,6 +46,6 @@ public class Map extends AbstractMap {
 
         nextCurrentSymbol();
 
-        return checkIfWon();
+        return null;
     }
 }

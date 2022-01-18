@@ -16,6 +16,7 @@ public class BigField extends AbstractMap implements IField {
 
     public void placeSymbol(FieldContent symbol) {
         content = symbol;
+        setToDisabled();
     }
 
     public boolean isDisabled() {
@@ -32,5 +33,9 @@ public class BigField extends AbstractMap implements IField {
 
     public void setToDisabled() {
         isDisabled = true;
+    }
+
+    public TableVector2d getPosition() {
+        return position;
     }
 }

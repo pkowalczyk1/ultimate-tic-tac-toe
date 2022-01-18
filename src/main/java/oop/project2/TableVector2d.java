@@ -23,4 +23,12 @@ public class TableVector2d {
     public int hashCode() {
         return Objects.hash(row, column);
     }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
 }
