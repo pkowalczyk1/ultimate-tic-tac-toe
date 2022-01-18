@@ -2,6 +2,8 @@ package oop.gui;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import oop.project2.*;
 
@@ -18,22 +21,35 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class OuterGrid {
+    private final Label currentMove;
     private final GridPane grid;
     private final VBox XMoves;
     private final VBox OMoves;
     private final HBox wrapper;
     private final Map map;
 
-    public final Timeline timer;
+    public Timeline timer = null;
 
     private final HashMap<TableVector2d, InnerGrid> innerGrids = new LinkedHashMap<>();
 
-    public OuterGrid(Map map) {
+    public OuterGrid(Map map, int timerValue) {
         this.map = map;
-        timer = new Timeline(new KeyFrame(Duration.seconds(20),
-                event -> map.nextCurrentSymbol()));
-        timer.setCycleCount(Timeline.INDEFINITE);
-        timer.play();
+
+        currentMove = new Label("Current player: Cross");
+        currentMove.setFont(Font.font(15));
+
+        if (timerValue != 0) {
+            timer = new Timeline(new KeyFrame(Duration.seconds(20), new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    map.nextCurrentSymbol();
+                    currentMove.setText("Current player: " + map.getCurrentSymbol().toString());
+                }
+            }));
+
+            timer.setCycleCount(Timeline.INDEFINITE);
+            timer.play();
+        }
 
         grid = new GridPane();
 
@@ -48,8 +64,12 @@ public class OuterGrid {
         ScrollPane OMovesList = new ScrollPane();
         XMovesList.setContent(XMoves);
         OMovesList.setContent(OMoves);
+        XMovesList.setFitToHeight(true);
+        OMovesList.setFitToHeight(true);
+        XMovesList.setPrefWidth(50);
+        OMovesList.setPrefWidth(50);
 
-        wrapper = new HBox(20, grid, XMovesList, OMovesList);
+        wrapper = new HBox(20, currentMove, grid, XMovesList, OMovesList);
         wrapper.setAlignment(Pos.TOP_CENTER);
 
         for (int i=0; i<3; i++) {
@@ -112,10 +132,6 @@ public class OuterGrid {
         }
     }
 
-    public Map getMap() {
-        return map;
-    }
-
     public HBox getWrapper() {
         return wrapper;
     }
@@ -135,9 +151,17 @@ public class OuterGrid {
     }
 
     public void innerGridClick(BigField bigField, IField smallField) {
-        map.clicked(bigField, smallField.getPosition());
+        FieldContent winner = map.clicked(bigField, smallField.getPosition());
         addMove(bigField.getPosition(), smallField.getPosition(), smallField.getContent());
-        timer.stop();
-        timer.playFromStart();
+        if (timer != null) {
+            timer.stop();
+            timer.playFromStart();
+        }
+
+        currentMove.setText("Current player: " + map.getCurrentSymbol().toString());
+
+        if (winner != null) {
+            currentMove.setText("Winner: " + winner);
+        }
     }
 }

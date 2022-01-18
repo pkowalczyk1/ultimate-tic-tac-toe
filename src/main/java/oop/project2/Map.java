@@ -17,6 +17,10 @@ public class Map extends AbstractMap {
         currentSymbol = currentSymbol.next();
     }
 
+    public FieldContent getCurrentSymbol() {
+        return currentSymbol;
+    }
+
     public FieldContent clicked(BigField field, TableVector2d position) {
         field.getFields().get(position).placeSymbol(currentSymbol);
         FieldContent fieldWinner = field.checkIfWon();

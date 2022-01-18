@@ -10,4 +10,11 @@ public enum FieldContent {
             case CIRCLE -> CROSS;
         };
     }
+
+    public String toString() {
+        return switch(this) {
+            case CROSS -> "Cross";
+            case CIRCLE -> "Circle";
+        };
+    }
 }
