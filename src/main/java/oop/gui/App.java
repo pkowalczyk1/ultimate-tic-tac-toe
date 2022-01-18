@@ -39,7 +39,7 @@ public class App extends Application {
             main.getChildren().add(grid.getWrapper());
         });
 
-        Scene scene = new Scene(main, 500, 500);
+        Scene scene = new Scene(main, 1000, 700);
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
         primaryStage.show();

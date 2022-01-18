@@ -39,12 +39,9 @@ public class OuterGrid {
         currentMove.setFont(Font.font(15));
 
         if (timerValue != 0) {
-            timer = new Timeline(new KeyFrame(Duration.seconds(20), new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    map.nextCurrentSymbol();
-                    currentMove.setText("Current player: " + map.getCurrentSymbol().toString());
-                }
+            timer = new Timeline(new KeyFrame(Duration.seconds(timerValue), event -> {
+                map.nextCurrentSymbol();
+                currentMove.setText("Current player: " + map.getCurrentSymbol().toString());
             }));
 
             timer.setCycleCount(Timeline.INDEFINITE);
@@ -68,6 +65,8 @@ public class OuterGrid {
         OMovesList.setFitToHeight(true);
         XMovesList.setPrefWidth(50);
         OMovesList.setPrefWidth(50);
+        XMovesList.setVvalue(1);
+        OMovesList.setVvalue(1);
 
         wrapper = new HBox(20, currentMove, grid, XMovesList, OMovesList);
         wrapper.setAlignment(Pos.TOP_CENTER);
@@ -162,6 +161,9 @@ public class OuterGrid {
 
         if (winner != null) {
             currentMove.setText("Winner: " + winner);
+        }
+        else if (map.checkIfComplete()) {
+            currentMove.setText("No winner");
         }
     }
 }

@@ -38,4 +38,8 @@ public class BigField extends AbstractMap implements IField {
     public TableVector2d getPosition() {
         return position;
     }
+
+    public boolean isComplete() {
+        return checkIfComplete() || content != null;
+    }
 }

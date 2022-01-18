@@ -12,4 +12,6 @@ public interface IField {
     boolean isDisabled();
 
     TableVector2d getPosition();
+
+    boolean isComplete();
 }

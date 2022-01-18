@@ -33,4 +33,8 @@ public class SmallField implements IField{
     public TableVector2d getPosition() {
         return position;
     }
+
+    public boolean isComplete() {
+        return content != null;
+    }
 }

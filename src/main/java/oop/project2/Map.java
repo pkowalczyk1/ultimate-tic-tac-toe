@@ -52,4 +52,19 @@ public class Map extends AbstractMap {
 
         return null;
     }
+
+    @Override
+    public boolean checkIfComplete() {
+        if (super.checkIfComplete()) {
+            return true;
+        }
+
+        for (IField field : fields.values()) {
+            if (!field.isComplete()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
