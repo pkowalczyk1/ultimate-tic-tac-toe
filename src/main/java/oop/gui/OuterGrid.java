@@ -115,8 +115,8 @@ public class OuterGrid {
                     }
 
                     ImageView imageView = new ImageView(image);
-                    imageView.setFitHeight(200);
-                    imageView.setFitWidth(200);
+                    imageView.setFitHeight(170);
+                    imageView.setFitWidth(170);
                     pane.getChildren().add(imageView);
                 }
 
