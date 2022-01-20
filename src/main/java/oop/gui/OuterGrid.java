@@ -2,8 +2,6 @@ package oop.gui;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -126,7 +124,7 @@ public class OuterGrid {
 
                 pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
                         CornerRadii.EMPTY, new BorderWidths(2, 2, 2, 2))));
-                grid.add(pane, i, j);
+                grid.add(pane, j, i);
             }
         }
     }

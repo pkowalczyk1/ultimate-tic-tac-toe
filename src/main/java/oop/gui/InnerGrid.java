@@ -80,7 +80,7 @@ public class InnerGrid {
                     parentGrid.makeGrid();
                 });
 
-                grid.add(pane, row, column);
+                grid.add(pane, column, row);
             }
         }
     }
